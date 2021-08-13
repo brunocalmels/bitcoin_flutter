@@ -256,6 +256,7 @@ class Transaction {
   }
 
   int vectorSize(List<Uint8List> someVector) {
+    if (someVector == null) return 0;
     var length = someVector.length;
     return varuint.encodingLength(length) +
         someVector.fold(0, (sum, witness) => sum + varSliceSize(witness));
@@ -349,6 +350,7 @@ class Transaction {
     }
 
     writeVector(vector) {
+      vector ??= List();
       writeVarInt(vector.length);
       vector.forEach((buf) {
         writeVarSlice(buf);
